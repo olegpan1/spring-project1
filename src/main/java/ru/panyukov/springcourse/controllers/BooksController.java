@@ -13,9 +13,7 @@ import ru.panyukov.springcourse.models.Person;
 import javax.validation.Valid;
 import java.util.Optional;
 
-/**
- * @author Neil Alishev
- */
+
 @Controller
 @RequestMapping("/books")
 public class BooksController {
@@ -41,10 +39,11 @@ public class BooksController {
 
         Optional<Person> bookOwner = bookDAO.getBookOwner(id);
 
-        if (bookOwner.isPresent())
+        if (bookOwner.isPresent()) {
             model.addAttribute("owner", bookOwner.get());
-        else
+        } else {
             model.addAttribute("people", personDAO.index());
+        }
 
         return "books/show";
     }
@@ -57,8 +56,9 @@ public class BooksController {
     @PostMapping()
     public String create(@ModelAttribute("book") @Valid Book Book,
                          BindingResult bindingResult) {
-        if (bindingResult.hasErrors())
+        if (bindingResult.hasErrors()) {
             return "books/new";
+        }
 
         bookDAO.save(Book);
         return "redirect:/books";
@@ -73,8 +73,9 @@ public class BooksController {
     @PatchMapping("/{id}")
     public String update(@ModelAttribute("book") @Valid Book book, BindingResult bindingResult,
                          @PathVariable("id") int id) {
-        if (bindingResult.hasErrors())
+        if (bindingResult.hasErrors()) {
             return "books/edit";
+        }
 
         bookDAO.update(id, book);
         return "redirect:/books";

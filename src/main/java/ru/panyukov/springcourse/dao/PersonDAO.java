@@ -10,9 +10,7 @@ import ru.panyukov.springcourse.models.Person;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * @author Neil Alishev
- */
+
 @Component
 public class PersonDAO {
 
